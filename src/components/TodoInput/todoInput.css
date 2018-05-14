@@ -1,0 +1,35 @@
+.todo-input-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.todo-input {
+    padding: 15px;
+    padding-left: 25px;
+    padding-right: 50px;
+    width: 80%;
+    font-size: 1.2em;
+    font-weight: 100;
+    color: grey;
+    caret-color: lightgrey;
+    border: none;
+}
+
+.todo-input::placeholder {
+    opacity: 0.2;
+}
+
+.todo-input:focus {
+    outline: none;
+}
+
+.add-todo {
+    cursor: pointer;
+    position: absolute;
+    right: 25px;
+    color: #4285f4;
+    font-size: 0.9em;
+}
