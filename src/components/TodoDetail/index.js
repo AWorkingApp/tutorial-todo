@@ -1,7 +1,16 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
+
 import './todoList.css';
 
 export default class TodoDetail extends React.PureComponent { 
+
+    static propTypes = {
+        todos: PropTypes.array,
+        onComplete: PropTypes.func,
+        onRemove: PropTypes.func,
+    }
+
     render() {
         return <div className='todo-detail-container shadow-container'>
         </div>
