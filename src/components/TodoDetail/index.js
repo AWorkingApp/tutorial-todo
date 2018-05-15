@@ -7,12 +7,14 @@ export default class TodoDetail extends React.PureComponent {
 
     static propTypes = {
         todos: PropTypes.array,
-        onComplete: PropTypes.func,
-        onRemove: PropTypes.func,
     }
 
     render() {
+        const { todos, } = this.props;
         return <div className='todo-detail-container shadow-container'>
+           <TodoList
+                todos={todos}
+            />
         </div>
     }
 }
@@ -41,11 +43,20 @@ function TodoFilterItem (props) {
 }
 
 function TodoList(props) {
-    return null;
+    const { todos, } = props;
+
+    return <Fragment>
+        {
+            todos.map((todo) => <TodoItem key={todo.id} todo={todo} />)
+        }
+    </Fragment>
 }
 
 function TodoItem(props) {
+    const { todo } = props;
+
     return <div className='todo-item'> 
+        <TodoContent {...todo} />
     </div>
 }
 
@@ -57,6 +68,12 @@ function TodoComplete(props) {
 
 function TodoContent(props) {
     return <div className="todo-content">
+        <span style={{
+            textDecoration: props.complete ? 'line-through' : 'none',
+            color: 'grey',
+            opacity: props.complete ? 0.2 : 0.9,
+            fontWeight: props.complete ? '100' : '200',
+        }}>{props.content}</span>
         </div>
 }
 

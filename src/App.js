@@ -18,6 +18,10 @@ class App extends PureComponent {
     todos: [],
   }
 
+  _findTodoIndex = (id) => {
+    return this.state.todos.findIndex((todo) => todo.id === id);
+  }
+
   render() {
     return (
       <div className='container'>
@@ -31,7 +35,12 @@ class App extends PureComponent {
             }} />
           </div>
           <div style={{ marginTop: 10 }}>
-            <TodoDetail />
+            {
+              this.state.todos.length > 0 ?
+                <TodoDetail
+                  todos={this.state.todos}
+                /> : null
+            }
           </div>
         </div>
       </div>
