@@ -29,9 +29,9 @@ class App extends PureComponent {
           <TodoTitle />
           <div style={{ margin: 25, marginTop: 16, }}>
             <TodoInput addTodo={(todo) => {
-              this.setState((prevState) => ({
-                todos: [{ id: Date.now(), complete: false, content: todo }].concat(prevState.todos)
-              }));
+                const todos = this.state.todos;
+                todos.push({ id: Date.now(), complete: false, content: todo });
+                this.setState({ todos: todos });
             }} />
           </div>
           <div style={{ marginTop: 10 }}>
