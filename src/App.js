@@ -34,7 +34,7 @@ class App extends PureComponent {
               }));
             }} />
           </div>
-          <div style={{ marginTop: 10 }}>
+          <div style={{ marginTop: 10, }}>
             {
               this.state.todos.length > 0 ?
                 <TodoDetail
