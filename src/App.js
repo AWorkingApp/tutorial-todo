@@ -39,7 +39,19 @@ class App extends PureComponent {
               this.state.todos.length > 0 ?
                 <TodoDetail
                   todos={this.state.todos}
-                /> : null
+                  onComplete={(id) => {
+                    const todoIdx = this._findTodoIndex(id);
+                    const newTodos = [].concat(this.state.todos);
+                    newTodos[todoIdx].complete = !newTodos[todoIdx].complete;
+                    this.setState({ todos: newTodos });
+                  }}
+                  onRemove={(id) => {
+                    const todoIdx = this._findTodoIndex(id);
+                    const newTodos = [].concat(this.state.todos);
+                    newTodos.splice(todoIdx, 1);
+                    this.setState({ todos: newTodos });
+                  }}
+              /> : null
             }
           </div>
         </div>

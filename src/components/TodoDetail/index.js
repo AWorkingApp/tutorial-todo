@@ -4,16 +4,24 @@ import PropTypes from 'prop-types';
 import './todoList.css';
 
 export default class TodoDetail extends React.PureComponent { 
-
     static propTypes = {
         todos: PropTypes.array,
+        onComplete: PropTypes.func,
+        onRemove: PropTypes.func,
+    }
+
+    static defaultProps = {
+        onComplete: (id) => {},
+        onRemove: (id) => {},
     }
 
     render() {
-        const { todos, } = this.props;
+        const { todos, onComplete, onRemove } = this.props;
         return <div className='todo-detail-container shadow-container'>
-           <TodoList
+            <TodoList
                 todos={todos}
+                onComplete={onComplete}
+                onRemove={onRemove}
             />
         </div>
     }
@@ -43,26 +51,36 @@ function TodoFilterItem (props) {
 }
 
 function TodoList(props) {
-    const { todos, } = props;
-
+    const { todos, onComplete, onRemove } = props;
     return <Fragment>
         {
-            todos.map((todo) => <TodoItem key={todo.id} todo={todo} />)
+            todos.map((todo) => <TodoItem key={todo.id} {...{ todo, onComplete, onRemove }} />)
         }
     </Fragment>
 }
 
 function TodoItem(props) {
-    const { todo } = props;
+    const { todo, onComplete, onRemove } = props;
 
     return <div className='todo-item'> 
+        <TodoComplete
+            complete={todo.complete}
+            onComplete={() => {
+                onComplete(todo.id);
+            }}
+        />
         <TodoContent {...todo} />
+        <TodoRemove
+            onRemove={() => {
+                onRemove(todo.id);
+            }}
+        />
     </div>
 }
 
 function TodoComplete(props) {
-    return <div className="todo-complete-container flex-center">
-        <span className={'todo-complete'}></span>
+    return <div className="todo-complete-container flex-center" onClick={props.onComplete}>
+        <span className={'todo-complete'}>{ props.complete ? 'Undo' : 'Done'}</span>
     </div>
 }
 
@@ -78,7 +96,7 @@ function TodoContent(props) {
 }
 
 function TodoRemove(props) {
-    return <div className="todo-remove flex-center">
+    return <div className="todo-remove flex-center" onClick={props.onRemove}>
         <span className="flex-center">X</span>
     </div>
 }
